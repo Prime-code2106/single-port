@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@1&display=swap');
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --font-body: "Inter", sans-serif;
+  --font-display: "Instrument Serif", serif;
+
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-text-primary: #f5f5f5;
+  --color-muted: #878787;
+  --color-stroke: #222222;
+  --color-accent: #f5f5f5;
+
+  --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
+  --animate-role-fade-in: role-fade-in 0.4s ease-out forwards;
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+
+  @keyframes scroll-down {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+
+  @keyframes role-fade-in {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text-primary font-body antialiased selection:bg-[#4E85BF] selection:text-white;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .accent-gradient {
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% 200%;
+  }
+
+  .blur-overlay {
+    backdrop-filter: blur(80px);
+    background: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.4) 0%, rgba(10, 10, 10, 0.8) 100%);
+  }
+
+  .accent-gradient-border {
+    position: relative;
+    background: #0a0a0a;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+
+  .accent-gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% 200%;
+    @apply rounded-[inherit] animate-gradient-shift;
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .blur-in {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+
+  .name-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .halftone-overlay {
+    background-image: radial-gradient(circle, #222 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+}
+
+/* Custom styles for components */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
